@@ -6,7 +6,7 @@ public class PhoneNumberValidator {
 
     protected void executeCanConvertInteger(String input) {
         try {
-            int number = parseInt(input);
+            parseInt(input);
         } catch (NumberFormatException numberFormatException) {
             throw new IllegalArgumentException("휴대폰 번호는 숫자여야 합니다.");
         }

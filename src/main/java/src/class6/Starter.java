@@ -5,7 +5,6 @@ public class Starter {
     private final PhoneNumberValidator phoneNumberValidator;
     private final InputAgent inputAgent;
     private final PrintAgent printAgent;
-
     private boolean isContinued = true;
 
     public Starter(PhoneNumberValidator phoneNumberValidator, InputAgent inputAgent,
@@ -19,14 +18,14 @@ public class Starter {
         while (isContinued) {
             try {
                 printAgent.executeInputGuide();
-                String input = inputAgent.execute();
+                PhoneNumber phoneNumber = new PhoneNumber(inputAgent.execute());
 
-                phoneNumberValidator.executeNumberLength(input);
-                phoneNumberValidator.executePreSignedNumber(input);
-                phoneNumberValidator.executeCanConvertInteger(input);
+                phoneNumberValidator.executeNumberLength(phoneNumber.getPhoneNumber());
+                phoneNumberValidator.executePreSignedNumber(phoneNumber.getPhoneNumber());
+                phoneNumberValidator.executeCanConvertInteger(phoneNumber.getPhoneNumber());
 
                 printAgent.executeSuccessGuide();
-                printAgent.executeInputPhoneNumber(input);
+                printAgent.executeInputPhoneNumber(phoneNumber.convertToPhoneNumber());
                 isContinued = false;
             } catch (IllegalArgumentException illegalArgumentException) {
                 System.out.println(illegalArgumentException.getMessage());
